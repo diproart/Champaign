@@ -3,8 +3,9 @@
 source 'https://rubygems.org'
 ruby '2.4.0'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', github: 'rails/rails', branch: '4-2-stable'
 gem 'rake'
+gem 'json', github: 'flori/json', branch: 'v1.8'
 gem 'rails-observers'
 gem 'readthis'
 gem 'hiredis'
