@@ -26,6 +26,8 @@ bundle exec rubocop
 
 # Runs tests
 bundle exec rspec spec
+node --version
+npm --version
 npm run test
 
 # Try to run all of the DB-related rake tasks
