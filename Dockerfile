@@ -1,5 +1,5 @@
 FROM ruby:2.4.0
-RUN apt-get update -qq && apt-get install -y imagemagick netcat
+RUN apt-get update -qq && apt-get install -qq -y imagemagick netcat
 
 # With --build-arg ci=false we'll skip the bundle install part
 ARG ci
