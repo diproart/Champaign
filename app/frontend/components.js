@@ -12,6 +12,7 @@ import { camelizeKeys } from './util/util';
 import ComponentWrapper from './ComponentWrapper';
 import FundraiserView from './containers/FundraiserView/FundraiserView';
 import CallToolView   from './containers/CallToolView/CallToolView';
+import CallStatusView from './containers/CallStatusView/CallStatusView';
 
 import type { Store } from 'redux';
 import type { AppState } from './state/reducers';
@@ -64,7 +65,7 @@ window.mountCallTool = (root: string, props: callToolInitialState) => {
   props = camelizeKeys(props);
 
   render(
-    <ComponentWrapper locale={props.locale}>
+    <ComponentWrapper store={store} locale={props.locale}>
       <CallToolView
         title={props.title}
         targets={props.targets}
@@ -73,6 +74,15 @@ window.mountCallTool = (root: string, props: callToolInitialState) => {
         onSuccess={props.onSuccess}
         countriesPhoneCodes={props.countriesPhoneCodes}
         targetCountryCode={props.targetCountryCode} />
+    </ComponentWrapper>,
+    document.getElementById(root)
+  );
+};
+
+window.mountCallStatus = (root: string, props={}) => {
+  render(
+    <ComponentWrapper store={store} locale={props.locale}>
+      <CallStatusView />
     </ComponentWrapper>,
     document.getElementById(root)
   );
