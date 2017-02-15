@@ -2,6 +2,8 @@
 class CallCreator
   include Rails.application.routes.url_helpers
 
+  attr_reader :call
+
   def initialize(params)
     @params = params.clone
     @errors = {}

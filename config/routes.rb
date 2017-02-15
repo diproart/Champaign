@@ -124,7 +124,7 @@ Rails.application.routes.draw do
         post 'validate', on: :collection, action: 'validate'
       end
       resources :survey_responses, only: [:create]
-      resource :call, only: [:create]
+      resources :calls, only: [:create, :show], defaults: { format: 'json' }
     end
 
     namespace :stateless, defaults: { format: 'json' } do

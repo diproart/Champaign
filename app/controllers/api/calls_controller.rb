@@ -6,10 +6,15 @@ class Api::CallsController < ApplicationController
     service = CallCreator.new(call_params)
 
     if service.run
-      head :no_content
+      @call = service.call
+      render :show
     else
       render json: { errors: service.errors, name: 'call' }, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @call = Call.find(params[:id])
   end
 
   private
