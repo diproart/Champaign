@@ -9,16 +9,12 @@ export type OperationResponse = {
   errors: {[id:string]: string[]};
 }
 
-const parseResponse = (response, textStatus, other): OperationResponse => {
-  if(response === undefined) {
-    return { success: true, errors: {} };
-  }
+const parseSuccessfulResponse = (payload, textStatus, response): OperationResponse => {
+  return { success: true, errors: {}, ...payload };
+};
 
+const parseErrorResponse = (response, textStatus, other): OperationResponse => {
   switch (response.status) {
-    case 200:
-    case 201:
-    case 204:
-      return { success: true, errors: {} };
     case 422:
       return { success: false, errors: camelizeKeys(response.responseJSON.errors) };
     default:
@@ -39,11 +35,18 @@ const createCall = function(params: {pageId: string|number, memberPhoneNumber?: 
     }
   };
 
-  return $.post(`/api/pages/${params.pageId}/call`, payload).then(parseResponse, parseResponse);
+  return $.post(`/api/pages/${params.pageId}/calls`, payload).then(parseSuccessfulResponse, parseErrorResponse);
+};
+
+const getCall = (pageId:number, id:number): Promise<OperationResponse> => {
+  return $.get(`/api/pages/${pageId}/calls/${id}`).then(parseSuccessfulResponse, parseErrorResponse);
 };
 
 const ChampaignAPI = {
-  calls: { create: createCall }
+  calls: {
+    create: createCall,
+    get:    getCall
+  }
 };
 
 export default ChampaignAPI;

@@ -1,12 +1,17 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import ChampaignAPI from '../../util/ChampaignAPI';
+import Form from '../../components/CallTool/Form';
+import { setCurrentCall, updateCurrentCallStatus } from '../../state/callTool/actions';
+
 import type { OperationResponse } from '../../util/ChampaignAPI';
 import type { IntlShape } from 'react-intl';
+import type { AppState } from '../../state';
+import type { Call as CurrentCall } from '../../state/callTool/reducer';
 
-import Form from '../../components/CallTool/Form';
 
 export type Target = {
   countryCode: string;
@@ -55,6 +60,9 @@ type OwnProps = {
   countriesPhoneCodes: CountryPhoneCode[];
   onSuccess?: () => void;
   intl: IntlShape;
+  currentCall?: CurrentCall;
+  setCurrentCall: (CurrentCall) => any;
+  updateCurrentCallStatus: (string) => any;
 }
 
 class CallToolView extends Component {
@@ -158,7 +166,6 @@ class CallToolView extends Component {
 
   submitSuccessful(response: OperationResponse) {
     this.setState({errors: {}, loading: false});
-    this.props.onSuccess && this.props.onSuccess(this.state.selectedTarget);
   }
 
   submitFailed(response: OperationResponse) {
@@ -222,5 +229,17 @@ class CallToolView extends Component {
   }
 }
 
-export default injectIntl(CallToolView);
+export const mapStateToProps = (state: AppState) => ({
+  currentCall: state.callTool.currentCall
+});
+
+export const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+  setCurrentCall: (call: CurrentCall) => dispatch(setCurrentCall(call)),
+  updateCurrentCallStatus: (status: string) => dispatch(updateCurrentCallStatus(status))
+});
+
+CallToolView = injectIntl(CallToolView);
+CallToolView = connect(mapStateToProps, mapDispatchToProps)(CallToolView);
+
+export default CallToolView;
 

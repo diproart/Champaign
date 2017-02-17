@@ -41,6 +41,7 @@ class CallCreator
 
   # TODO: Move method to service class, handle error messages in there.
   def place_call
+    return
     client = Twilio::REST::Client.new.account.calls
     client.create(
       from: Settings.calls.default_caller_id,
