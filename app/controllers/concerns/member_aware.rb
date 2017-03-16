@@ -17,7 +17,9 @@ module MemberAware
   def write_member_cookie(member_id)
     cookies.signed[:member_id] = {
       value: member_id,
-      expires: 2.years.from_now
+      expires: 2.years.from_now,
+      domain: :all,
+      tld_length: 1
     }
   end
 
