@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include AuthToken
+  include MemberAware
 
   before_filter :set_default_locale
 
@@ -40,13 +41,6 @@ class ApplicationController < ActionController::Base
     set_locale(page.language_code) if page.present?
   end
 
-  def write_member_cookie(member_id)
-    cookies.signed[:member_id] = {
-      value: member_id,
-      expires: 2.years.from_now
-    }
-  end
-
   def referer_url
     { action_referer: request.referer }
   end
@@ -65,18 +59,6 @@ class ApplicationController < ActionController::Base
       payment_method_ids = (cookies.signed[:payment_methods] || '').split(',')
       PaymentMethodFetcher.new(recognized_member, filter: payment_method_ids).fetch
     end
-  end
-
-  def current_member
-    return nil if cookies.signed[:authentication_id].nil?
-
-    payload = decode_jwt(cookies.signed[:authentication_id])
-    @current_member ||= Member.find_by(id: payload['id'])
-  end
-
-  def recognized_member
-    @recognized_member ||= current_member ||
-                           Member.find_from_request(akid: params[:akid], id: cookies.signed[:member_id])
   end
 
   def authenticate_super_admin!
