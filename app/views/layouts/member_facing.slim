@@ -30,4 +30,4 @@ html lang="#{@page.language.try(:code).try(:downcase)}"
     = javascript_include_tag *webpack_asset_paths('components', extension: 'js') unless Rails.env.test?
     = render partial: 'shared/google_analytics_snippet'
 
-    script type="text/javascript" charset="utf-8" async=true src="//c.shpg.org/99/sp.js"
+    script type="text/javascript" charset="utf-8" async src="//c.shpg.org/99/sp.js"
