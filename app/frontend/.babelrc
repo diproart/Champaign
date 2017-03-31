@@ -1,3 +1,20 @@
 {
-  "presets": ["react-app"]
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": [
+          "last 3 versions",
+          "safari >= 5",
+          "ie >= 9"
+        ]
+      }
+    }],
+    "react"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "transform-react-jsx"
+  ]
 }

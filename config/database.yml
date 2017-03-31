@@ -31,8 +31,8 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  database: ebdb
+  username: soutech
+  password: 0dnlj4KbVPBw
+  host: champaign-env-production.cnssncor2lrg.us-west-2.rds.amazonaws.com
+  port: 5432

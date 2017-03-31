@@ -5,6 +5,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const getClientEnvironment = require('./env');
+const path = require('path');
 
 const paths = require('./paths');
 
@@ -31,10 +32,18 @@ module.exports = {
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: {
-    components: [
-      require.resolve('./webpackHotDevClient'),
+    libs: [
+      require.resolve(path.join(paths.appSrc, 'init')),
       require.resolve('./polyfills'),
+      require.resolve('whatwg-fetch'),
+      require.resolve('preact'),
+      require.resolve('preact-compat'),
+    ],
+    components: [
       paths.appIndexJs,
+    ],
+    fundraiser: [
+      require.resolve(path.join(paths.appSrc, 'apps', 'fundraiser')),
     ],
   },
   output: {

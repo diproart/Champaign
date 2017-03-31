@@ -317,7 +317,7 @@ const Fundraiser = Backbone.View.extend(_.extend(CurrencyMethods, {
   },
 
   currentUser() {
-    var formUser = this.serializeUserForm();
+    const formUser = this.serializeUserForm();
     if(this.member.email === formUser.email) {
       return this.member;
     } else {
@@ -326,7 +326,7 @@ const Fundraiser = Backbone.View.extend(_.extend(CurrencyMethods, {
   },
 
   transactionSuccess(data) {
-    $.publish('fundraiser:transaction_success', [data, this.formData()])
+    $.publish('fundraiser:transaction_success', [data, this.formData()]);
   },
 
   onOneClickFailed() {

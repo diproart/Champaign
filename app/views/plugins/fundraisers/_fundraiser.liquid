@@ -1,3 +1,7 @@
+{% if .... }
+  <script ...>
+{% endif %}
+
 {% if plugins.fundraiser[ref].active %}
   <div class="fundraiser-bar sidebar {{ extra_class }} {% if freestanding %} fundraiser-bar--freestanding {% endif %}">
     <div class="{% unless freestanding %}overlay-toggle__mobile-view overlay-toggle__mobile-view--closed{% endunless %}">
