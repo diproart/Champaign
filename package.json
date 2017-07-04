@@ -3,7 +3,8 @@
     "precommit": "lint-staged",
     "pretest": "node bin/convert_translations.js",
     "flow": "flow",
-    "test": "jest"
+    "test": "jest --silent --coverage",
+    "test-watch": "jest --watch --coverage"
   },
   "lint-staged": {
     "*.{js,jsx,css,scss}": [
@@ -95,6 +96,9 @@
     "yamljs": "^0.2.10"
   },
   "jest": {
+    "collectCoverageFrom": [
+      "app/javascript/**/*.js"
+    ],
     "transform": {
       "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"
     },
