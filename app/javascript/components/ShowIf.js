@@ -1,7 +1,8 @@
 // @flow
-
 import React from 'react';
 import type { Element } from 'react';
+import classnames from 'classnames';
+import './ShowIf.css';
 
 // <ShowIf /> *renders* its children, but hides them with CSS if
 // `props.condition` is falsy, as opposed to not rendering the node at all
@@ -10,22 +11,20 @@ import type { Element } from 'react';
 // but you don't want to display the component, and you don't want to add that
 // show/hide display logic to the child components.
 type OwnProps = {
-  condition: boolean;
-  children?: Element<any>;
+  condition: boolean,
+  children?: Element<any>,
 };
 export default (props: OwnProps) => {
-  const style = {};
-  let className = 'ShowIf--visible';
-
   if (!props.children) return null;
 
-  if (!props.condition) {
-    style.display = 'none';
-    className = 'ShowIf--hidden';
-  }
+  const classNames: string = classnames({
+    ShowIf: true,
+    'ShowIf--visible': props.condition,
+    'ShowIf--hidden': !props.condition,
+  });
 
   return (
-    <div style={style} className={'ShowIf '+className}>
+    <div className={classNames}>
       {props.children}
     </div>
   );
