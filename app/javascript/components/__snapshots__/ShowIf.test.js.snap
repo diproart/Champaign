@@ -7,3 +7,5 @@ exports[`renders correctly 1`] = `
   Content
 </div>
 `;
+
+exports[`renders null if passed with no children 1`] = `null`;

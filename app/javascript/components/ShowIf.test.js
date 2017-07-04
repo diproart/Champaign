@@ -9,6 +9,11 @@ test('renders correctly', () => {
   expect(toJson(wrapper)).toMatchSnapshot();
 });
 
+test('renders null if passed with no children', () => {
+  const wrapper = shallow(<ShowIf condition={true} />);
+  expect(toJson(wrapper)).toMatchSnapshot();
+});
+
 test('it has visible class when condition is truthy', () => {
   const wrapper = shallow(<ShowIf condition={true}>Hello</ShowIf>);
   expect(wrapper.hasClass('ShowIf--visible')).toBeTruthy();
