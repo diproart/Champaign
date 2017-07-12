@@ -129,3 +129,5 @@ twilio:
 
 calls:
   targeting_secret: <%= ENV['CALL_TARGETING_SECRET'] %>
+
+action_stream_name: <%= ENV['ACTION_STREAM_NAME'] %>
